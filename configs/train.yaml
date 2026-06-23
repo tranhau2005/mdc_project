@@ -1,0 +1,51 @@
+paths:
+  project_root: ..
+  data_dir: data/InternalData/make-data-count-finding-data-references
+  pdf_dir: data/InternalData/make-data-count-finding-data-references/train/PDF
+  xml_dir: data/InternalData/make-data-count-finding-data-references/train/XML
+  train_labels_path: data/InternalData/make-data-count-finding-data-references/train_labels.csv
+  database_dir: data/ExternalData/mdc_datasetv3
+  output_dir: artifacts/outputs
+  log_dir: artifacts/logs
+
+model:
+  model_paths: []
+  tokenizer_path: artifacts/model/deberta-v3-large
+  max_length: 512
+  batch_size: 2
+  device: cuda
+  use_fp16: true
+
+runtime:
+  seed: 42
+  num_workers: 4
+  gpu_ids: [0,1]
+  linux_mode: true
+  debug: false
+
+train:
+  input_csv: artifacts/outputs/train_candidates.csv
+  base_model_path: artifacts/model/deberta-v3-large
+  tokenizer_path: artifacts/model/deberta-v3-large
+  output_dir: artifacts/models
+  run_name_prefix: deberta-new
+  num_folds: 6
+  fold_index: null
+  epochs: 3.0
+  learning_rate: 2.0e-5
+  weight_decay: 0.01
+  warmup_ratio: 0.1
+  gradient_clipping: 1.0
+  gradient_accumulation_steps: 8
+  eval_strategy: epoch
+  save_strategy: epoch
+  save_total_limit: 2
+  logging_steps: 25
+  ema_decay: 0.9995
+  ema_update_every: 1
+  ema_update_after_step: 50
+  metric_for_best_model: f1
+  greater_is_better: true
+  dataloader_num_workers: 0
+  report_to: []
+  drop_missing: true

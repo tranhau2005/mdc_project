@@ -1,0 +1,42 @@
+paths:
+  project_root: ..
+  data_dir: data/InternalData/make-data-count-finding-data-references
+  pdf_dir: data/InternalData/make-data-count-finding-data-references/test/PDF
+  xml_dir: data/InternalData/make-data-count-finding-data-references/test/XML
+  train_labels_path: data/InternalData/make-data-count-finding-data-references/train_labels.csv
+  database_dir: data/ExternalData/mdc_datasetv3
+  output_dir: artifacts/outputs
+  log_dir: artifacts/logs
+
+retrieval:
+  text_chunk_size: 500
+  doi_min_len: 5
+  doi_max_len: 100
+  use_xml_fallback_for_doi: true
+  use_xml_for_accession: true
+  max_xml_acc_additions: 10
+
+model:
+  model_paths:
+    - artifacts/models/fold_0/deberta-new-fold0
+    - artifacts/models/fold_1/deberta-new-fold1
+    - artifacts/models/fold_2/deberta-new-fold2
+    - artifacts/models/fold_3/deberta-new-fold3
+    - artifacts/models/fold_4/deberta-new-fold4
+    - artifacts/models/fold_5/deberta-new-fold5
+  tokenizer_path: artifacts/model/deberta-v3-large
+  max_length: 512
+  batch_size: 2
+  device: cuda
+  use_fp16: true
+
+thresholds:
+  doi_primary_threshold: 0.
+  acc_secondary_quantile: 0.1
+
+runtime:
+  seed: 42
+  num_workers: 4
+  gpu_ids: [0, 1]
+  linux_mode: true
+  debug: false

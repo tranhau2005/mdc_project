@@ -1,0 +1,9 @@
+numpy
+pandas
+PyMuPDF
+PyYAML
+rapidfuzz
+nameparser
+scikit-learn
+torch
+transformers

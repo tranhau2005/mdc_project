@@ -1,0 +1,46 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+id_rsa*
+*.credential*
+*secret*
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Local editor and automation state
+.vscode/
+.idea/
+.codex
+
+# Data, model weights, and generated artifacts
+/data/
+/artifacts/
+*.safetensors
+*.pt
+*.pth
+*.bin
+*.pkl
+*.zip
+
+# Logs and generated reports
+*.log
+nohup.out
+*_audit.csv
+
+# Notebooks often contain large outputs or private data previews.
+*.ipynb
+
+# OS files
+.DS_Store
+Thumbs.db
