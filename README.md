@@ -58,6 +58,37 @@ python scripts/run_ensemble.py \
   --input-csv artifacts/outputs/predictions.csv
 ```
 
+## Model results
+
+The current local DeBERTa ensemble was trained with 6 folds. The training summary reports:
+
+| Metric | Value |
+| --- | ---: |
+| Folds trained | 6 |
+| Mean fold F1 | 0.7200 |
+| Overall OOF F1 | 0.6886 |
+
+Held-out evaluation was run on `artifacts/splits/train_candidates_test.csv` with 74 rows from 21 articles. The best documented test variants are:
+
+| Variant | Threshold | Accuracy | Primary F1 | Macro F1 | Weighted F1 | Competition F1 |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| Tuned global | `0.546` | 0.8243 | 0.7111 | 0.7924 | 0.8122 | 0.8243 |
+| Tuned by identifier kind | `doi=0.545`, `acc=0.538` | 0.8108 | 0.7308 | 0.7925 | 0.8075 | 0.8108 |
+
+For the tuned-global run, the confusion matrix over `[Secondary, Primary]` was:
+
+```text
+[[45,  1],
+ [12, 16]]
+```
+
+For the tuned-by-kind run, the confusion matrix over `[Secondary, Primary]` was:
+
+```text
+[[41,  5],
+ [ 9, 19]]
+```
+
 ## Repository Safety
 
 This repo is prepared for public GitHub hosting. The `.gitignore` blocks datasets, model weights, generated artifacts, logs, notebooks, and environment files by default.
