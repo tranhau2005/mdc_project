@@ -60,34 +60,66 @@ python scripts/run_ensemble.py \
 
 ## Model results
 
-The current local DeBERTa ensemble was trained with 6 folds. The training summary reports:
+The latest documented evaluation uses a transparent final split that excludes the
+current `test/PDF` debug articles from classifier training and threshold tuning.
+The debug set contained 30 PDF articles, 12 of which overlapped with the original
+candidate-training CSV, so the final report uses a separate held-out article list.
+
+Final split summary:
+
+| Split | Rows | Articles | Primary | Secondary |
+| --- | ---: | ---: | ---: | ---: |
+| Classifier train | 600 | 172 | 220 | 380 |
+| Final held-out | 106 | 30 | 39 | 67 |
+
+The final local DeBERTa ensemble was retrained with 6 folds on the classifier
+train split:
 
 | Metric | Value |
 | --- | ---: |
 | Folds trained | 6 |
-| Mean fold F1 | 0.7200 |
-| Overall OOF F1 | 0.6886 |
+| Mean fold F1 | 0.5907 |
+| Overall OOF F1 | 0.5944 |
 
-Held-out evaluation was run on `artifacts/splits/train_candidates_test.csv` with 74 rows from 21 articles. The best documented test variants are:
+Thresholds were tuned only from OOF validation predictions. The selected frozen
+threshold for final reporting is the global primary threshold `0.543`.
 
-| Variant | Threshold | Accuracy | Primary F1 | Macro F1 | Weighted F1 | Competition F1 |
-| --- | --- | ---: | ---: | ---: | ---: | ---: |
-| Tuned global | `0.546` | 0.8243 | 0.7111 | 0.7924 | 0.8122 | 0.8243 |
-| Tuned by identifier kind | `doi=0.545`, `acc=0.538` | 0.8108 | 0.7308 | 0.7925 | 0.8075 | 0.8108 |
+Classifier-only evaluation on `artifacts/final_eval/train_candidates_final_heldout.csv`:
 
-For the tuned-global run, the confusion matrix over `[Secondary, Primary]` was:
+| Variant | Threshold | Accuracy | Primary Precision | Primary Recall | Primary F1 | Macro F1 | Weighted F1 | Competition F1 |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Tuned global | `0.543` | 0.9057 | 1.0000 | 0.7436 | 0.8529 | 0.8917 | 0.9020 | 0.9057 |
+| Tuned by identifier kind | `doi=0.543`, `acc=0.558` | 0.9057 | 1.0000 | 0.7436 | 0.8529 | 0.8917 | 0.9020 | 0.9057 |
 
-```text
-[[45,  1],
- [12, 16]]
-```
-
-For the tuned-by-kind run, the confusion matrix over `[Secondary, Primary]` was:
+Classifier-only confusion matrix over `[Secondary, Primary]`:
 
 ```text
-[[41,  5],
- [ 9, 19]]
+[[67,  0],
+ [10, 29]]
 ```
+
+Full pipeline evaluation on the same 30 held-out articles, starting from PDF/XML:
+
+| Metric | Value |
+| --- | ---: |
+| Label rows | 106 |
+| Prediction rows | 92 |
+| Precision | 0.9783 |
+| Recall | 0.8491 |
+| F1 | 0.9091 |
+| TP / FP / FN | 90 / 2 / 16 |
+
+Retrieval-only metrics for the full pipeline:
+
+| Metric | Value |
+| --- | ---: |
+| Precision | 0.9891 |
+| Recall | 0.8585 |
+| F1 | 0.9192 |
+| TP / FP / FN | 91 / 1 / 15 |
+
+The generated local report files are under `artifacts/final_eval/`, which is not
+committed because generated artifacts and model weights are intentionally ignored.
 
 ## Repository Safety
 

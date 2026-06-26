@@ -18,12 +18,12 @@ retrieval:
 
 model:
   model_paths:
-    - artifacts/models/fold_0/deberta-new-fold0
-    - artifacts/models/fold_1/deberta-new-fold1
-    - artifacts/models/fold_2/deberta-new-fold2
-    - artifacts/models/fold_3/deberta-new-fold3
-    - artifacts/models/fold_4/deberta-new-fold4
-    - artifacts/models/fold_5/deberta-new-fold5
+    - artifacts/model/mdc_debertas_new/fold_0/deberta-new-94cv
+    - artifacts/model/mdc_debertas_new/fold_1/deberta-new-90cv
+    - artifacts/model/mdc_debertas_new/fold_2/deberta-new-93cv
+    - artifacts/model/mdc_debertas_new/fold_3/deberta-new-98cv
+    - artifacts/model/mdc_debertas_new/fold_4/deberta-new-98cv
+    - artifacts/model/mdc_debertas_new/fold_5/deberta-new-83cv
   tokenizer_path: artifacts/model/deberta-v3-large
   max_length: 512
   batch_size: 2

@@ -15,7 +15,7 @@ class DOIExtractor:
                  max_len: int)-> List[CitationCandidate]:
         start_matches = list(self.regex.doi_start.finditer(text))
         doi_chunks: dict[str, CitationCandidate] = {}
-        article_doi=clean_doi_alpha_num_article_id(article.doi)
+        article_doi=clean_doi_alpha_num_article_id(article.article_id)
         for match in start_matches:
             start_idx= match.start()
             for cur_len in range (min_len, max_len):
@@ -25,7 +25,7 @@ class DOIExtractor:
                 doi=clean_doi_alpha_num(chunk)
                 text_chunk= text[max(0,start_idx-self.cfg.text_chunk_size): end_idx+self.cfg.text_chunk_size]
                 info = self.repo.doi_dataset_dict.get(doi)
-                if not doi or not info or doi in doi_chunks or output_doi in None:
+                if not doi or not info or doi in doi_chunks or output_doi is None:
                     continue
                 publications =[clean_doi_alpha_num(dct['publication']) for dct in info]
                 if article_doi and article_doi in publications:

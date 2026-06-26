@@ -30,7 +30,9 @@ class CitationRetriever:
         if len(acc_predictions) == 0 or len(acc_predictions_xml) <= 10:
             acc_predictions += acc_predictions_xml
 
-        if len(doi_predictions) <= 1 and len(acc_predictions) > 1:
+        if any(pred.type_label for pred in doi_predictions):
+            preds = doi_predictions
+        elif len(doi_predictions) <= 1 and len(acc_predictions) > 1:
             preds = acc_predictions
         else:
             if len(doi_predictions) == 0:
