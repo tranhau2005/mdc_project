@@ -65,21 +65,11 @@ current `test/PDF` debug articles from classifier training and threshold tuning.
 The debug set contained 30 PDF articles, 12 of which overlapped with the original
 candidate-training CSV, so the final report uses a separate held-out article list.
 
-Final split summary:
+Final held-out test summary:
 
-| Split | Rows | Articles | Primary | Secondary |
-| --- | ---: | ---: | ---: | ---: |
-| Classifier train | 600 | 172 | 220 | 380 |
-| Final held-out | 106 | 30 | 39 | 67 |
-
-The final local DeBERTa ensemble was retrained with 6 folds on the classifier
-train split:
-
-| Metric | Value |
-| --- | ---: |
-| Folds trained | 6 |
-| Mean fold F1 | 0.5907 |
-| Overall OOF F1 | 0.5944 |
+| Rows | Articles | Primary | Secondary |
+| ---: | ---: | ---: | ---: |
+| 106 | 30 | 39 | 67 |
 
 Thresholds were tuned only from OOF validation predictions. The selected frozen
 threshold for final reporting is the global primary threshold `0.543`.
