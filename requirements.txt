@@ -7,3 +7,8 @@ nameparser
 scikit-learn
 torch
 transformers
+fastapi
+uvicorn[standard]
+python-multipart
+pytest
+httpx
