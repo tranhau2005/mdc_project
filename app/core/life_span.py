@@ -9,7 +9,7 @@ async def lifespan(app: FastAPI):
     model_service= ModelService(
         config_path=settings.model_config_path
     )
-    app.state.model_serice = model_service
+    app.state.model_service = model_service
     try: 
         await run_in_threadpool(model_service.load)
         yield
